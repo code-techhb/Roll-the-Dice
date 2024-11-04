@@ -1,5 +1,4 @@
 'use strict';
-
 // -------------- selecting elements ----------------
 let activePlayer, currentScore, playersScores, gameInProgress;
 
@@ -15,6 +14,12 @@ const dice = document.querySelector('.dice');
 const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
+
+// const btnInfo = document.getElementById('info');
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
+const btnCloseModal = document.querySelector('.close-modal');
+const btnOpenModal = document.querySelector('.show-modal');
 
 // -------------- function definitons ----------------
 const init = function () {
@@ -34,6 +39,7 @@ const init = function () {
   player1.classList.remove('player--active');
   player0.classList.remove('player--winner');
   player1.classList.remove('player--winner');
+  document.getElementById('wins').textContent = '';
 };
 
 const switchPlayers = function () {
@@ -47,7 +53,6 @@ const switchPlayers = function () {
   activePlayer = activePlayer === 0 ? 1 : 0;
 };
 
-// event handler functions
 const rollTheDice = function () {
   if (gameInProgress) {
     // generate a random dice rool
@@ -73,10 +78,15 @@ const holdPlayerScore = function () {
     playersScores[activePlayer] += currentScore;
     document.getElementById(`score--${activePlayer}`).textContent =
       playersScores[activePlayer];
-
     // check for winner?
-    if (playersScores[activePlayer] >= 20) {
+    if (playersScores[activePlayer] >= 100) {
       gameInProgress = false;
+      document.getElementById('wins').textContent = `Player ${
+        activePlayer + 1
+      } wins!!!`;
+      // Throw confetti on winning
+      const jsConfetti = new JSConfetti();
+      jsConfetti.addConfetti();
       // hide the dice
       dice.classList.add('hidden');
       document
@@ -91,9 +101,32 @@ const holdPlayerScore = function () {
     }
   }
 };
+
+const openModal = function () {
+  modal.classList.remove('hidden');
+  overlay.classList.remove('hidden');
+};
+
+const closeModal = function () {
+  modal.classList.add('hidden');
+  overlay.classList.add('hidden');
+};
+
 // -------------- Main script ----------------
 init(); //start the game
 // events listeners
 btnRoll.addEventListener('click', rollTheDice);
 btnHold.addEventListener('click', holdPlayerScore);
 btnNew.addEventListener('click', init);
+
+// Game info - event listeners for modal
+btnOpenModal.addEventListener('click', openModal);
+btnCloseModal.addEventListener('click', closeModal);
+overlay.addEventListener('click', closeModal);
+
+// Handle closing the modal with "Escape" key
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+    closeModal();
+  }
+});

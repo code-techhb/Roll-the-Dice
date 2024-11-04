@@ -8,6 +8,8 @@
     <title>Pig Game</title>
   </head>
   <body>
+    <!-- <canvas id="canvas"></canvas> -->
+    <h4 id="wins"></h4>
     <main>
       <section class="player player--0 player--active">
         <h2 class="name" id="name--0">Player 1</h2>
@@ -31,6 +33,38 @@
       <button class="btn btn--roll">🎲 Roll dice</button>
       <button class="btn btn--hold">📥 Hold</button>
     </main>
+    <!-- modal -->
+    <button class="info-button show-modal">ℹ️</button>
+    <div class="modal hidden">
+      <button class="close-modal">&times;</button>
+      <h2>Rules of the Game</h2>
+      <ul>
+        <li><strong>Goal</strong>: Be the first player to reach 100 points.</li>
+        <li>
+          <strong>On your turn</strong>:
+          <ul>
+            <li>Roll a six-sided die.</li>
+            <li>
+              If you roll a number from 2 to 6, the number gets added to your
+              turn total.
+            </li>
+            <li>
+              If you roll a 1, your turn ends and your turn total becomes 0.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Hold</strong>: You can choose to "hold" at any time to add
+          your turn total to your overall score and end your turn.
+        </li>
+        <li>
+          <strong>Winning</strong>: The first player to reach 100 points wins
+          the game.
+        </li>
+      </ul>
+    </div>
+    <div class="overlay hidden"></div>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
