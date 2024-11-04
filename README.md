@@ -17,7 +17,7 @@ with the goal of reaching 100 points to win. The game is interactive and include
 - JSConfetti: For rendering confetti animations when a player wins.
 
 ## What to expect 
-Play the game [here]()
+Play the game [here](https://roll-the-dice-five.vercel.app/)
 
 ## Course Information
 - Instructor: Jonas Schmedtmann
